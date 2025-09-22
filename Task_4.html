@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eshu | Web Developer Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f9f9f9, #e3f2fd);
+      color: #333;
+    }
+
+    header {
+      background: #007bff;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    nav {
+      margin-top: 1rem;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 2rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .project, .timeline-item, #todo-app, #product-listing {
+      background: #fff;
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 0.5rem 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input, textarea, select {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background: #0056b3;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .timeline-item {
+      border-left: 4px solid #007bff;
+      padding-left: 1rem;
+    }
+
+    #taskList li {
+      background: #eee;
+      padding: 0.5rem;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #taskList li button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    #productContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .product-card {
+      background: #fff;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    #photoPreview img {
+      max-width: 300px;
+      margin-top: 1rem;
+      border-radius: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #eee;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Eshu Sharma</h1>
+    <p>Web Developer | Creative Coder | Problem Solver</p>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#internship">Internship</a>
+      <a href="#todo-app">To-Do App</a>
+      <a href="#product-listing">Products</a>
+      <a href="#photo">Photo</a>
+      <a href="#contact">Contact</a>
+      <a href="https://github.com/eshu077" target="_blank">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero">
+      <h2>Hi, I'm Eshu 👋</h2>
+      <p>I build responsive, interactive web experiences using modern JavaScript.</p>
+      <a href="#projects" class="cta-button">View My Work</a>
+    </section>
+
+    <section id="projects">
+      <h2>Featured Projects</h2>
+      <div class="project"><h3>Amazon Clone</h3><p>Responsive e-commerce UI with product cards, cart, and filters.</p></div>
+      <div class="project"><h3>Spotify Clone</h3><p>Music streaming interface with playlist and playback controls.</p></div>
+      <div class="project"><h3>Portfolio Website</h3><p>Multi-page responsive portfolio with animations and GitHub integration.</p></div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills & Frameworks</h2>
+      <ul>
+        <li>HTML, CSS, JavaScript (ES6+)</li>
+        <li>Responsive Design & Accessibility</li>
+        <li>Node.js, Express.js, MongoDB</li>
+        <li>React.js, Mongoose, REST APIs</li>
+        <li>Git, GitHub, VS Code</li>
+      </ul>
+    </section>
+
+    <section id="internship">
+      <h2>Internship Experience</h2>
+      <div class="timeline">
+        <div class="timeline-item"><h4>Week 1–2</h4><p>Built responsive dashboards using HTML, CSS, and ES6.</p></div>
+        <div class="timeline-item"><h4>Week 3–4</h4><p>Created interactive resumes with GitHub integration and animations.</p></div>
+        <div class="timeline-item"><h4>Week 5–6</h4><p>Developed real-world apps with API integration and score tracking.</p></div>
+      </div>
+    </section>
+
+    <section id="todo-app">
+      <h2>To-Do List App</h2>
+      <input type="text" id="taskInput" placeholder="Add a task..." />
+      <button onclick="addTask()">Add</button>
+      <ul id="taskList"></ul>
+    </section>
+
+    <section id="product-listing">
+      <h2>Product Listing Page</h2>
+      <input type="text" id="searchProduct" placeholder="Search products..." />
+      <select id="filterCategory">
+        <option value="all">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="fashion">Fashion</option>
+      </select>
+      <select id="sortPrice">
+        <option value="asc">Price: Low to High</option>
+        <option value="desc">Price: High to Low</option>
+      </select>
+      <div id="productContainer"></div>
+    </section>
+
+    <section id="photo">
+      <h2>My Photo</h2>
+      <input type="file" id="photoUpload" accept="image/*" />
+      <div id="photoPreview"></div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form id="contactForm">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+      <p id="formStatus"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Eshu | Built with ❤️ using HTML, CSS & JS</p>
+  </footer>
+
+  <script>
+    // ✅ Contact Form Submission
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      document.getElementById("formStatus").textContent = "Thanks! I'll get back to you soon.";
+      this.reset();
+    });
+
+    // 🖼️ Photo Upload Preview
+    document.getElementById("photoUpload").addEventListener("change", function () {
+      const file = this.files[0];
+      const preview = document.getElementById("photoPreview");
+      preview.innerHTML = "";
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // 📝 To-Do List with localStorage
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const task = input.value.trim();
+      if (task) {
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.push(task);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        displayTasks();
+        input.value = "";
+      }
+    }
+
+    function displayTasks() {
+      const taskList = document.getElementById("taskList");
+      taskList.innerHTML = "";
+
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+      tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+
+        // Task text
+        const span = document.createElement("span");
+        span.textContent = task;
+        span.style.flex = "1";
+
+        // Edit button
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "✏️";
+        editBtn.title = "Edit Task";
+        editBtn.style.marginRight = "0.5rem";
+        editBtn.onclick = () => {
+          const newTask = prompt("Edit your task:", task);
+          if (newTask !== null && newTask.trim() !== "") {
+            tasks[index] = newTask.trim();
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+            displayTasks();
+          }
+        };
+
+        // Delete button
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "❌";
+        delBtn.title = "Delete Task";
+        delBtn.onclick = () => {
+          tasks.splice(index, 1);
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+          displayTasks();
+        };
+
+        li.appendChild(span);
+        li.appendChild(editBtn);
+        li.appendChild(delBtn);
+        taskList.appendChild(li);
+      });
+    }
+
+    displayTasks();
+
+    // 🛍️ Product Listing with Search, Filter, and Sort
+    const products = [
+      { name: "Smartphone", category: "electronics", price: 15000, rating: 4.5 },
+      { name: "Jeans", category: "fashion", price: 1200, rating: 4.0 },
+      { name: "Headphones", category: "electronics", price: 2500, rating: 4.2 },
+    ];
+
+    function renderProducts(filtered = products) {
+      const container = document.getElementById("productContainer");
+      container.innerHTML = "";
+
+      filtered.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+          <h4>${product.name}</h4>
+          <p>₹${product.price}</p>
+          <p>Rating: ${product.rating}</p>
+          <p>Category: ${product.category}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function applyFilters() {
+      const category = document.getElementById("filterCategory").value;
+      const sortOrder = document.getElementById("sortPrice").value;
+      const searchQuery = document.getElementById("searchProduct").value.toLowerCase();
+
+      let filtered = products.filter(p =>
+        (category === "all" || p.category === category) &&
+        (p.name.toLowerCase().includes(searchQuery) || p.category.toLowerCase().includes(searchQuery))
+      );
+
+      if (sortOrder === "asc") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else {
+        filtered.sort((a, b) => b.price - a.price);
+      }
+
+      renderProducts(filtered);
+    }
+
+    // Event Listeners
+    document.getElementById("filterCategory").addEventListener("change", applyFilters);
+    document.getElementById("sortPrice").addEventListener("change", applyFilters);
+    document.getElementById("searchProduct").addEventListener("input", applyFilters);
+
+    // Initial render
+    renderProducts();
+  </script>
+</body>
+</html>
