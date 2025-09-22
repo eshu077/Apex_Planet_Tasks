@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Quiz & Joke App</title>
+  <style>
+    /* Base Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styling */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #f0f4ff);
+      color: #333;
+      padding: 20px;
+    }
+
+    /* Header */
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: slideDown 1s ease;
+    }
+
+    /* Main Layout */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-top: 30px;
+    }
+
+    /* Sections */
+    section {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.08);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Responsive Layout */
+    @media (min-width: 700px) {
+      main {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      section {
+        width: 48%;
+      }
+    }
+
+    /* Buttons */
+    button {
+      margin-top: 15px;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    /* Score Display */
+    #score {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #28a745;
+      font-weight: bold;
+      animation: pulse 1s infinite alternate;
+    }
+
+    /* Joke Styling */
+    #joke {
+      margin-top: 20px;
+      font-size: 18px;
+      line-height: 1.5;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 15px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎓 Quiz & 😂 Joke App</h1>
+  </header>
+
+  <main>
+    <!-- ✅ Quiz Section with Score Placeholder -->
+    <section id="quiz-section">
+      <h2 id="question">Question appears here</h2>
+      <div id="answers"></div>
+      <!-- Score will be injected here -->
+    </section>
+
+    <!-- 😂 Joke Section -->
+    <section id="joke-section">
+      <h2>Need a laugh?</h2>
+      <button onclick="getJoke()">Get a Joke</button>
+      <p id="joke"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with ❤️ by Aditya raghav</p>
+  </footer>
+
+  <script>
+    // ✅ Expanded Quiz Questions
+    const questions = [
+      { question: "What does HTML stand for?", answers: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"], correct: 0 },
+      { question: "Which language is used for styling web pages?", answers: ["HTML", "jQuery", "CSS"], correct: 2 },
+      { question: "What does DOM stand for?", answers: ["Document Object Model", "Data Object Management", "Digital Order Matrix"], correct: 0 },
+      { question: "Which tag is used to link a CSS file?", answers: ["<script>", "<link>", "<style>"], correct: 1 },
+      { question: "Which method is used to fetch data from an API in JavaScript?", answers: ["getData()", "fetch()", "retrieve()"], correct: 1 },
+      { question: "What does CSS stand for?", answers: ["Cascading Style Sheets", "Creative Style Syntax", "Computer Style System"], correct: 0 },
+      { question: "Which symbol is used for comments in JavaScript?", answers: ["//", "/* */", "#"], correct: 0 },
+      { question: "Which property is used to change text color in CSS?", answers: ["font-color", "text-color", "color"], correct: 2 }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function showQuestion() {
+      if (current >= questions.length) {
+        showFinalScore();
+        return;
+      }
+
+      const q = questions[current];
+      document.getElementById("question").textContent = q.question;
+      const answersDiv = document.getElementById("answers");
+      answersDiv.innerHTML = "";
+
+      q.answers.forEach((answer, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = answer;
+        btn.onclick = () => {
+          if (i === q.correct) {
+            btn.style.backgroundColor = "#28a745";
+            score++;
+          } else {
+            btn.style.backgroundColor = "#dc3545";
+          }
+          setTimeout(() => nextQuestion(), 1000);
+        };
+        answersDiv.appendChild(btn);
+      });
+
+      updateScoreDisplay();
+    }
+
+    function nextQuestion() {
+      current++;
+      showQuestion();
+    }
+
+    function updateScoreDisplay() {
+      let scoreEl = document.getElementById("score");
+      if (!scoreEl) {
+        scoreEl = document.createElement("p");
+        scoreEl.id = "score";
+        document.getElementById("quiz-section").appendChild(scoreEl);
+      }
+      scoreEl.textContent = `✅ Correct Answers: ${score} / ${questions.length}`;
+    }
+
+    function showFinalScore() {
+      const questionEl = document.getElementById("question");
+      const answersDiv = document.getElementById("answers");
+      questionEl.textContent = "🎉 Quiz Completed!";
+      answersDiv.innerHTML = `<p>You got <strong>${score}</strong> out of <strong>${questions.length}</strong> questions right.</p>`;
+
+      const restartBtn = document.createElement("button");
+      restartBtn.textContent = "Restart Quiz";
+      restartBtn.onclick = () => {
+        current = 0;
+        score = 0;
+        showQuestion();
+      };
+      answersDiv.appendChild(restartBtn);
+    }
+
+    showQuestion();
+
+    // 😂 Fallback Jokes
+    const fallbackJokes = [
+      "Why did the math book get an A+ on the quiz? Because it had all the right angles!",
+      "Why did the ghost fail the quiz? Because he couldn’t be seen!",
+      "Why did the pencil get a perfect score? It always had the write answers!",
+      "Why did the computer take a history quiz? Because it wanted to byte into the past!",
+      "Why did the quiz go to therapy? It was feeling tested and stressed!",
+      "Why did the student eat a clock before the quiz? Because they wanted to go back in time and study more!",
+      "Why did the plant fail the quiz? It couldn’t photosynthesize the answers!",
+      "Why did the quiz become a stand-up comedian? It loved getting laughs and multiple choices!"
+    ];
+
+    // 🌐 Joke API + Fade-In Animation
+    async function getJoke() {
+      const jokeEl = document.getElementById("joke");
+      jokeEl.style.opacity = 0;
+
+      try {
+        const response = await fetch("https://official-joke-api.appspot.com/random_joke");
+        const data = await response.json();
+        jokeEl.textContent = `${data.setup} — ${data.punchline}`;
+      } catch (error) {
+        const randomJoke = fallbackJokes[Math.floor(Math.random() * fallbackJokes.length)];
+        jokeEl.textContent = randomJoke;
+      }
+
+      setTimeout(() => {
+        jokeEl.style.opacity = 1;
+      }, 100);
+    }
+  </script>
+</body>
+</html>
